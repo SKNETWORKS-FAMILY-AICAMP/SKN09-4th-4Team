@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>보험 챗봇 시작하기</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Pretendard', sans-serif;
+      background-color: #444;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .wrapper {
+      display: flex;
+      flex-direction: row;
+      max-width: 1200px;
+      width: 100%;
+      background-color: #333;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+
+    .left, .right {
+      flex: 1;
+      padding: 32px 24px;
+      color: #f4f6fa;
+    }
+
+    .left {
+      border-right: 1px solid #555;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .logo {
+      width: 60px;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      margin: 10px 0;
+    }
+
+    p {
+      font-size: 0.95rem;
+      color: #bbb;
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    .features {
+      text-align: left;
+      margin: 20px 0;
+    }
+
+    .features li {
+      list-style: none;
+      padding-left: 1.2em;
+      position: relative;
+      font-size: 0.9rem;
+      color: #ccc;
+      margin-bottom: 8px;
+    }
+
+    .features li::before {
+      content: "✔";
+      position: absolute;
+      left: 0;
+      color: #4f8ef7;
+    }
+
+    label {
+      display: block;
+      margin: 20px 0 10px;
+      font-size: 0.85rem;
+      color: #ddd;
+      text-align: center;
+    }
+
+    button {
+      padding: 12px 24px;
+      font-size: 1rem;
+      background: linear-gradient(90deg, #005bac, #0075d1);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      width: 100%;
+      transition: background 0.3s ease, transform 0.2s ease;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+    }
+
+    button:disabled {
+      background-color: #555;
+      color: #999;
+      cursor: not-allowed;
+    }
+
+    .disclaimer, footer {
+      font-size: 0.75rem;
+      color: #888;
+      margin-top: 16px;
+      line-height: 1.4;
+      text-align: center;
+    }
+
+    footer {
+      color: #666;
+    }
+
+    a {
+      color: #4f8ef7;
+      text-decoration: none;
+    }
+
+    .right {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .category-info {
+      max-width: 480px;
+      width: 100%;
+      text-align: left;
+      font-size: 0.85rem;
+    }
+
+    .category-info h3 {
+      margin-bottom: 12px;
+      font-size: 1rem;
+      color: #f7f6ff;
+    }
+
+    .category-info details {
+      margin-bottom: 10px;
+      background-color: #2a2a2a;
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: 1px solid #555;
+    }
+
+    .category-info summary {
+      cursor: pointer;
+      font-weight: 600;
+      color: #e6e7ea;
+      font-size: 0.9rem;
+    }
+
+    .category-info p {
+      color: #dddcdc;
+      margin: 6px 0 0 12px;
+      font-size: 0.85rem;
+      line-height: 1.5;
+    }
+
+    .modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.6);
+
+  }
+
+  .modal-content {
+    background-color: #1e1e1e;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 700px;
+    color: #fff;
+    border-radius: 12px;
+    position: relative;
+
+  }
+  .modal-content h2 {
+  text-align: center;
+}
+
+
+  .close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    cursor: pointer;
+  }
+
+  .close-button:hover {
+    color: #fff;
+  }
+
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <!-- 왼쪽 영역 -->
+    <div class="left">
+      
+      <img src="{% static 'images/PSL_LOGO.png' %}" alt="제작자 로고" class="logo">
+      <h1>보험 상담 챗봇</h1>
+      <p>
+        자동차, 실손, 장기, 생명보험까지 다양한 보험을<br>
+        여러 보험사별로 비교하고, 궁금한 점을 자유롭게 질문해보세요.<br>
+        보험 종류와 회사를 선택하면 바로 상담이 시작됩니다.
+      </p>
+
+      <ul class="features">
+        <li>다양한 보험 상품 약관 비교 가능</li>
+        <li>보험사별 특장점 및 조건 직접 확인</li>
+        <li>보험 관련 궁금증 실시간 챗봇 상담</li>
+      </ul>
+
+      <label>
+        <input type="checkbox" id="agree">
+        개인정보 수집 및 이용에 동의합니다. <a href="#" id="viewTerms">[보기]</a>
+      </label>
+
+      <button id="startBtn" disabled onclick="startChat()">보험 상담 시작하기</button>
+
+      <div class="disclaimer">
+        ※ 본 챗봇은 정보 제공을 목적으로 하며, 법적 책임이나 권리·의무를 발생시키지 않습니다.<br>
+        정확한 내용은 각 보험사의 공식 홈페이지 또는 고객센터를 통해 확인해 주세요.
+      </div>
+
+      <footer>
+        고객센터: 4497-5006 <br>
+        © 2025 PolisupportLab 보험 챗봇
+      </footer>
+    </div>
+
+    <!-- 오른쪽 영역 -->
+    <div class="right">
+      <div class="category-info">
+        <h3>보험 종류별 안내</h3>
+
+        <details>
+          <summary>📌 자동차 보험</summary>
+          <p>대인/대물 보장, 자차/자손 보장, 책임보험, 특약 조건 등 비교</p>
+        </details>
+
+        <details>
+          <summary>📌 일반 보험</summary>
+          <p>화재보험, 여행자보험, 배상책임보험 등 일상생활에 필요한 상품</p>
+        </details>
+
+        <details>
+          <summary>📌 장기 보험 (질병·상해)</summary>
+          <p>암/뇌/심장/질병/상해 관련 보장 범위와 보험금 조건 비교</p>
+        </details>
+
+        <details>
+          <summary>📌 장기 보험 (저축·연금)</summary>
+          <p>연금개시 시점, 수령 방식, 적립금 운용 방식 등 재무 목적 상품</p>
+        </details>
+
+        <details>
+          <summary>📌 기타</summary>
+          <p>펫보험, 운전자보험, 유병자보험 등 특수 목적 상품 안내</p>
+        </details>
+      </div>
+    </div>
+    <!-- 모달 HTML 추가-->
+    <div id="termsModal" class="modal">
+      <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <h2>개인정보 수집 및 이용</h2>
+        <p>
+          본 서비스는 상담을 위해 최소한의 개인정보를 수집합니다.<br><br>
+          1. 수집 항목: 상담 내용<br>
+          2. 이용 목적: 보험 상담 답변 개선<br>
+          3. 보유 기간: 상담 완료 후 3개월 이내 파기<br><br>
+          이용자는 동의를 거부할 권리가 있으며, 이 경우 일부 서비스 이용이 제한될 수 있습니다.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const agree = document.getElementById('agree');
+    const startBtn = document.getElementById('startBtn');
+
+    agree.addEventListener('change', () => {
+      startBtn.disabled = !agree.checked;
+    });
+
+    function startChat() {
+      window.location.href = "{% url 'chat_page' %}";
+    }
+
+ 
+    const modal = document.getElementById('termsModal');
+    const openBtn = document.getElementById('viewTerms');
+    const closeBtn = document.querySelector('.close-button');
+
+    openBtn.addEventListener('click', (e) => {
+      e.preventDefault(); // 링크 이동 막기
+      modal.style.display = 'block';
+    });
+
+    closeBtn.addEventListener('click', () => {
+      modal.style.display = 'none';
+    });
+
+    window.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.style.display = 'none';
+      }
+    });
+</script>
+
+
+
+
+</body>
+</html>

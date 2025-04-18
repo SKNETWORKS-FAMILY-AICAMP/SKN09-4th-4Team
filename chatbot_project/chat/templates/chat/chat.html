@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>보험 상담 챗봇</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Pretendard', sans-serif;
+      background-color: #f4f6fa;
+      display: flex;
+      height: 100vh;
+      position: relative;
+    }
+    .sidebar {
+      width: 300px;
+      background-color: #333;
+      border-right: 1px solid #444;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+      position: relative;
+      z-index: 2;
+    }
+    .sidebar h2 { font-size: 16px; color: #f4f6fa; margin-top: 0; }
+    label { display: block; margin-bottom: 8px; font-size: 14px; color: #ddd; }
+    input[type="checkbox"] { margin-right: 8px; }
+    .contact { font-size: 12px; line-height: 1.6; color: #ddd; }
+    .contact a { color: #2b6cb0; text-decoration: none; }
+    .divider {
+      margin: 16px 0;
+      border: none;
+      border-top: 1px solid #444;
+    }
+    .end-chat-btn {
+      width: 100%;
+      padding: 12px 0;
+      background: linear-gradient(90deg, #6c757d, #495057);
+      color: #fff;
+      font-size: 14px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s ease;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    }
+    .end-chat-btn:hover {
+      background: linear-gradient(90deg, #5a6268, #343a40);
+      transform: translateY(-2px);
+    }
+
+    /* 채팅 영역 */
+    .chat-area {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      z-index: 1;
+    }
+    .chat-header {
+      padding: 16px;
+      font-size: 20px;
+      font-weight: bold;
+      background-color: #444;
+      color: #f4f6fa;
+      border-bottom: 1px solid #555;
+    }
+    .chat-window {
+      flex: 1;
+      padding: 24px;
+      overflow-y: auto;
+      background-color: #444;
+      color: #f4f6fa;
+      position: relative;
+    }
+    .chat-input {
+      display: flex;
+      padding: 16px;
+      background-color: #555;
+      border-top: 1px solid #666;
+    }
+    .chat-input input {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      margin-right: 8px;
+      background-color: #666;
+      color: #f4f6fa;
+      opacity: 0.9;
+    }
+    .chat-input input::placeholder { color: #bbb; }
+    .chat-input input:focus {
+      background-color: #777;
+      outline: none;
+    }
+    .chat-input button {
+      padding: 10px 16px;
+      background-color: #005bac;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    /* 메시지 스타일 */
+    .message, .user-message {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 16px;
+    }
+    .avatar, .user-avatar {
+      font-size: 24px;
+      margin-right: 12px;
+    }
+    .user-message { justify-content: flex-end; }
+    .user-avatar { margin-left: 12px; margin-right: 0; }
+    .bubble, .user-bubble {
+      padding: 12px 18px;
+      border-radius: 20px;
+      max-width: 60%;
+      font-size: 14px;
+      position: relative;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .bubble {
+      background-color: #4e5b60;
+      color: white;
+    }
+    .user-bubble {
+      background-color: #007bff;
+      color: white;
+    }
+
+    /* 워터마크 */
+    .watermark {
+      position: absolute;
+      transform: rotate(-30deg);
+      font-size: 48px;
+      color: rgba(255, 255, 255, 0.1);
+      pointer-events: none;
+      user-select: none;
+      white-space: nowrap;
+      z-index: 0;
+    }
+    .watermark:nth-child(1) { top: 10%; left: 10%; }
+    .watermark:nth-child(2) { top: 40%; left: 30%; }
+    .watermark:nth-child(3) { top: 70%; left: 50%; }
+
+    /* 모달 */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(8px);
+      z-index: 999;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-content {
+      background: #fff;
+      padding: 30px;
+      border-radius: 15px;
+      text-align: center;
+      width: 90%;
+      max-width: 400px;
+    }
+    #download-btn {
+      background: linear-gradient(90deg, #6c757d, #495057);
+      color: white;
+      padding: 14px 24px;
+      border: none;
+      border-radius: 10px;
+      margin-bottom: 30px;
+      cursor: pointer;
+      width: 100%; 
+      font-size: 15px;
+      transition: all 0.2s ease;
+    }
+   
+    .feedback-buttons {
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 20px;
+    }
+
+    .feedback-buttons button {
+    font-size: 1.2rem; /* 기존 15px에서 1.2rem으로 맞춤 */
+    padding: 14px 24px; /* 기존 유지 */
+    margin: 5px; /* 기존 .feedback-btn에 있었음 */
+    background-color: #f0f0f0; /* 기존 .feedback-btn의 색 */
+    border: none;
+    border-radius: 10px; /* 기존 .feedback-btn은 8px, 여기선 10px → 취향 따라 선택 */
+    cursor: pointer;
+    transition: all 0.2s ease;
+    }
+
+    .feedback-buttons button:hover {
+    background-color: #ccc;
+    transform: scale(1.02);
+    }
+
+    /* 클릭 시 튀어나오는 애니메이션 */
+    @keyframes popEmoji {
+    0% {
+        transform: scale(1) translateY(0);
+    }
+    50% {
+        transform: scale(1.4) translateY(-10px);
+    }
+    100% {
+        transform: scale(1) translateY(0);
+    }
+    }
+
+    .feedback-buttons button.pop {
+    animation: popEmoji 0.4s ease;
+    }
+
+    .feedback-container {
+    width: 100%;
+    padding: 0 20px;
+    text-align: left;   
+    margin-bottom: 20px;
+    }
+
+    .feedback-title {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 5px;
+    font-weight: bold;
+    }
+
+    .feedback-subtitle {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 0;
+    }
+
+    .logo {
+      font-size: 20px;
+      font-weight: bold;
+      margin-top: 20px;
+      color: #666;
+    }
+    .thanks {
+      font-size: 14px;
+      color: #999;
+      margin-bottom: 20px;
+    }
+    .button-group {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.close-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.blue-btn {
+  background-color: #4270a1;
+}
+
+.red-btn {
+  background-color: #ca3140;
+}
+
+
+.emoji {
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+
+.emoji.animate {
+  animation: popUp 0.4s ease;
+}
+
+@keyframes popUp {
+  0% {
+    transform: scale(1) translateY(0);
+  }
+  50% {
+    transform: scale(1.4) translateY(-6px);
+  }
+  100% {
+    transform: scale(1) translateY(0);
+  }
+}
+
+  </style>
+</head>
+
+<body>
+  <div class="sidebar">
+    <div>
+      <h2>보험사 선택</h2>
+      <label><input type="checkbox" checked> AXA 손해 보험</label>
+      <label><input type="checkbox" checked> KB 손해 보험</label>
+      <label><input type="checkbox"> 롯데 손해 보험</label>
+      <label><input type="checkbox"> 하나 손해 보험</label>
+    </div>
+    <div>
+      <h2>보험 종류 선택</h2>
+      <label><input type="checkbox"> 자동차 보험</label>
+      <label><input type="checkbox" checked> 일반 보험</label>
+      <label><input type="checkbox" checked> 장기: 질병, 상해</label>
+      <label><input type="checkbox" checked> 장기: 저축, 연금</label>
+      <label><input type="checkbox"> 장기: 기타</label>
+    </div>
+    <div class="contact">      
+      <strong>AXA 손해 보험</strong><br>
+      <a href="#">약관 사이트</a><br>
+      상담사 연결: 1566-2266<br><br>
+      <strong>KB 손해 보험</strong><br>
+      <a href="#">약관 사이트</a><br>
+      상담사 연결: 1544-0114<br><br>
+      <strong>롯데 손해 보험</strong><br>
+      <a href="#">약관 사이트</a><br>
+      상담사 연결: 1588-3344<br><br>      
+      <strong>하나 손해 보험</strong><br>
+      <a href="#">약관 사이트</a><br>
+      상담사 연결: 02-6670-8440
+
+      <hr class="divider">
+      <button id="endChatButton" class="end-chat-btn">🚪 대화 종료 및 다운로드 🚪</button>
+    </div>
+  </div>
+
+  <!-- 채팅 영역 -->
+  <div class="chat-area">
+    <div class="chat-header">PoliSupport 💬 보험 지원 챗봇입니다.</div>
+    <div class="chat-window" id="chatWindow">
+      <div class="watermark">PoliSupport Lab</div>
+      <div class="watermark">PoliSupport Lab</div>
+      <div class="watermark">PoliSupport Lab</div>
+
+      <!-- 초기 메시지 -->
+      <div class="message">
+        <div class="avatar">🤖</div>
+        <div class="bubble">
+          안녕하세요! 당신의 보험 내용을 설명드릴 보험 상담사 보미입니다.<br>
+          왼쪽에서 상담받을 보험사와 보험 카테고리를 선택해주세요.
+        </div>
+      </div>
+    </div>
+
+    <div class="chat-input">
+      <input type="text" id="userInput" placeholder="메시지를 입력하세요...">
+      <button id="sendBtn">전송</button>
+    </div>
+  </div>
+
+  <!-- 피드백 모달 -->
+  <div id="feedbackModal" class="modal">
+    <div class="modal-content">
+      <button id="download-btn">대화기록 다운로드</button>
+
+      <div class="feedback-container">
+        <div class="feedback-title">피드백을 남겨주세요</div>
+        <div class="feedback-subtitle">더 좋은 답변을 제공하는데 도움이 됩니다</div>
+      </div>
+
+      <div class="feedback-buttons">
+        <button onclick="animateEmoji(this)">
+          <span class="emoji">😊</span> 만족해요
+        </button>
+        <button onclick="animateEmoji(this)">
+          <span class="emoji">😐</span> 보통이에요
+        </button>
+        <button onclick="animateEmoji(this)">
+          <span class="emoji">😞</span> 아쉬워요
+        </button>
+      </div>
+      
+      <div class="logo">PoliSupport Lab</div>
+      <div class="thanks">이용해주셔서 감사합니다.</div>
+      <div class="button-group">
+        <button id="goBack" class="close-btn blue-btn">되돌아가기</button>
+        <button id="exit" class="close-btn red-btn">종료</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 스크립트 -->
+  <script>
+    const sendBtn = document.getElementById('sendBtn');
+    const userInput = document.getElementById('userInput');
+    const chatWindow = document.getElementById('chatWindow');
+
+    function appendUserMessage(text) {
+      const userMessage = document.createElement('div');
+      userMessage.classList.add('user-message');
+      userMessage.innerHTML = `
+        <div class="user-bubble">${text}</div>
+        <div class="user-avatar">🙋</div>
+      `;
+      chatWindow.appendChild(userMessage);
+      chatWindow.scrollTop = chatWindow.scrollHeight;
+    }
+
+    function appendBotMessage(text) {
+      const botMessage = document.createElement('div');
+      botMessage.classList.add('message');
+      botMessage.innerHTML = `
+        <div class="avatar">🤖</div>
+        <div class="bubble">${text}</div>
+      `;
+      chatWindow.appendChild(botMessage);
+      chatWindow.scrollTop = chatWindow.scrollHeight;
+    }
+
+    function handleSendMessage() {
+      const message = userInput.value.trim();
+      if (!message) return;
+
+      appendUserMessage(message);
+      userInput.value = '';
+
+      // 여기에 LLM 연동 부분을 넣으면 됨
+      setTimeout(() => {
+        appendBotMessage("🤖 답변 준비 중입니다... (LLM 응답이 여기에 표시됩니다)");
+      }, 800); // 응답 지연 연출
+    }
+
+    sendBtn.addEventListener('click', handleSendMessage);
+    userInput.addEventListener('keypress', function (e) {
+      if (e.key === 'Enter') handleSendMessage();
+    });
+
+    document.getElementById('endChatButton').addEventListener('click', function () {
+      document.getElementById('feedbackModal').style.display = 'flex';
+    });
+
+
+    document.getElementById('download-btn').addEventListener('click', function () {
+      const bubbles = chatWindow.querySelectorAll('.message, .user-message');
+      const text = Array.from(bubbles).map(msg => {
+        if (msg.classList.contains('user-message')) {
+            return '🙋 사용자: ' + msg.innerText;
+        } else {
+            return '🤖 보미: ' + msg.innerText;
+        }
+        }).join('\n\n');
+      const blob = new Blob([text], { type: 'text/plain' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = '질의응답.txt';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    });
+
+    document.getElementById('goBack').addEventListener('click', function () {
+      document.getElementById('feedbackModal').style.display = 'none';
+    });
+
+
+    document.getElementById('exit').addEventListener('click', function () {
+  const chatWindow = document.querySelector('.chat-window');
+
+  // 채팅창 비우기
+  chatWindow.innerHTML = `
+    <div class="watermark">PoliSupport Lab</div>
+    <div class="watermark">PoliSupport Lab</div>
+    <div class="watermark">PoliSupport Lab</div>
+  `;
+
+  // 초기 메시지 수동으로 1회만 삽입
+  const welcomeMessage = document.createElement('div');
+  welcomeMessage.className = 'message';
+  welcomeMessage.innerHTML = `
+    <div class="avatar">🤖</div>
+    <div class="bubble">
+      안녕하세요! 당신의 보험 내용을 설명드릴 보험 상담사 보미입니다.<br>
+      왼쪽에서 상담받을 보험사와 보험 카테고리를 선택해주세요.
+    </div>
+  `;
+  chatWindow.appendChild(welcomeMessage);
+
+  // 모달 닫기
+  document.getElementById('feedbackModal').style.display = 'none';
+});
+</script>
+<script>
+    function animateEmoji(button) {
+      const emoji = button.querySelector('.emoji');
+  
+      // 이미 애니메이션 중이면 제거하고 다시 추가 (재실행)
+      emoji.classList.remove('animate');
+  
+      // 강제로 reflow를 일으켜서 다시 애니메이션이 적용되도록 함
+      void emoji.offsetWidth;
+  
+      emoji.classList.add('animate');
+    }
+  </script>
+</body>
+</html>
+
