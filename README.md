@@ -1,6 +1,8 @@
 # SKN09-4th-4Team
 
 ### - LLM을 연동한 내외부 문서 기반 질의 응답 시스템
+![PSL_LOGO](https://github.com/user-attachments/assets/f99a4037-977f-4a75-8f63-d2a75a258332)
+
 
 <br>
 
