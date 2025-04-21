@@ -1,12 +1,15 @@
-from llm.service.llm_service import generate_answer
-from llm.service.search_service import search_documents
+# chat/service/chat_service.py
 
-chat_log = []  # 실사용시 DB나 세션에 저장하는 게 좋음
+from llm.service.llm_service import LLMService
 
-def process_chat(user_input):
-    relevant_docs = search_documents(user_input)
-    answer = generate_answer(user_input, relevant_docs)
+class ChatService:
+    def __init__(self):
+        self.llm = LLMService()
 
-    # 기록 저장
-    chat_log.append({'q': user_input, 'a': answer})
-    return answer, chat_log
+    def ask_with_llm(self, query, companies, categories):
+        # llm_service는 top_k 인자를 받지 않음 → 제거
+        return self.llm.generate_answer_with_filtering(
+            question=query,
+            companies=companies,
+            categories=categories
+        )

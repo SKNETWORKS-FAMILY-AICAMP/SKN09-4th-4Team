@@ -19,6 +19,7 @@ from django.urls import path, include
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", include("chat.urls")),
+    path("", include(("chat.urls", "chat"), namespace="chat")),
+    path("llm/", include("llm.urls")),  # llm API URL 분리
 ]
 

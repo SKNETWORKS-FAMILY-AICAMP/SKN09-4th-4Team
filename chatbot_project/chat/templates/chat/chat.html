@@ -309,18 +309,18 @@
   <div class="sidebar">
     <div>
       <h2>보험사 선택</h2>
-      <label><input type="checkbox" checked> AXA 손해 보험</label>
-      <label><input type="checkbox" checked> KB 손해 보험</label>
-      <label><input type="checkbox"> 롯데 손해 보험</label>
-      <label><input type="checkbox"> 하나 손해 보험</label>
+      <label><input type="checkbox" name="companies" value="AXA" checked> AXA 손해 보험</label>
+      <label><input type="checkbox" name="companies" value="KB"> KB 손해 보험</label>
+      <label><input type="checkbox" name="companies" value="LOTTE"> 롯데 손해 보험</label>
+      <label><input type="checkbox" name="companies" value="HANA"> 하나 손해 보험</label>
     </div>
     <div>
       <h2>보험 종류 선택</h2>
-      <label><input type="checkbox"> 자동차 보험</label>
-      <label><input type="checkbox" checked> 일반 보험</label>
-      <label><input type="checkbox" checked> 장기: 질병, 상해</label>
-      <label><input type="checkbox" checked> 장기: 저축, 연금</label>
-      <label><input type="checkbox"> 장기: 기타</label>
+      <label><input type="checkbox" name="categories" value="car" checked> 자동차 보험</label>
+      <label><input type="checkbox" name="categories" value="general"> 일반 보험</label>
+      <label><input type="checkbox" name="categories" value="injury"> 장기: 질병, 상해</label>
+      <label><input type="checkbox" name="categories" value="saving"> 장기: 저축, 연금</label>
+      <label><input type="checkbox" name="categories" value="etc"> 장기: 기타</label>
     </div>
     <div class="contact">      
       <strong>AXA 손해 보험</strong><br>
@@ -398,10 +398,17 @@
 
   <!-- 스크립트 -->
   <script>
+    sessionStorage.setItem("user_id", "{{ user_id|default:'' }}");
+
     const sendBtn = document.getElementById('sendBtn');
     const userInput = document.getElementById('userInput');
     const chatWindow = document.getElementById('chatWindow');
-
+  
+    function getSelectedValues(name) {
+      return Array.from(document.querySelectorAll(`input[name="${name}"]:checked`))
+                  .map(cb => cb.value);
+    }
+  
     function appendUserMessage(text) {
       const userMessage = document.createElement('div');
       userMessage.classList.add('user-message');
@@ -412,7 +419,7 @@
       chatWindow.appendChild(userMessage);
       chatWindow.scrollTop = chatWindow.scrollHeight;
     }
-
+  
     function appendBotMessage(text) {
       const botMessage = document.createElement('div');
       botMessage.classList.add('message');
@@ -423,24 +430,67 @@
       chatWindow.appendChild(botMessage);
       chatWindow.scrollTop = chatWindow.scrollHeight;
     }
-
-    function handleSendMessage() {
+  
+    function getCSRFToken() {
+      const cookies = document.cookie.split(';');
+      for (let cookie of cookies) {
+        const [name, value] = cookie.trim().split('=');
+        if (name === 'csrftoken') return decodeURIComponent(value);
+      }
+      return '';
+    }
+  
+    async function handleSendMessage() {
+      console.log('[📥 handleSendMessage 호출됨]');
       const message = userInput.value.trim();
       if (!message) return;
-
+  
       appendUserMessage(message);
       userInput.value = '';
-
-      // 여기에 LLM 연동 부분을 넣으면 됨
-      setTimeout(() => {
-        appendBotMessage("🤖 답변 준비 중입니다... (LLM 응답이 여기에 표시됩니다)");
-      }, 800); // 응답 지연 연출
+  
+      const companies = getSelectedValues('companies');
+      const categories = getSelectedValues('categories');
+  
+      try {
+        const response = await fetch('/chat/ask_llm/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'X-CSRFToken': getCSRFToken()
+          },
+          body: new URLSearchParams({
+            query: message,
+            companies: companies,
+            categories: categories
+          })
+        });
+  
+        if (!response.ok) {
+          throw new Error('서버 오류 발생');
+        }
+  
+        const data = await response.json();
+        appendBotMessage(data.answer);
+        lastTurn = data.turn;  // 서버에서 받은 정확한 turn 사용
+        console.log("[✅ 서버로부터 turn 저장]", lastTurn);
+        lastAnswer = data.answer;
+        console.log("[✅ 서버로부터 answer 저장]", lastAnswer);
+        lastQuestion = message;
+        console.log("[✅ 질문 저장]", lastQuestion);
+        lastChatId = data.chat_id || "";
+  
+      } catch (error) {
+        appendBotMessage("❌ 오류가 발생했습니다. 다시 시도해 주세요.");
+        console.error("LLM 오류:", error);
+      }
     }
-
+  
     sendBtn.addEventListener('click', handleSendMessage);
     userInput.addEventListener('keypress', function (e) {
       if (e.key === 'Enter') handleSendMessage();
     });
+    
+    
 
     document.getElementById('endChatButton').addEventListener('click', function () {
       document.getElementById('feedbackModal').style.display = 'flex';
@@ -509,6 +559,53 @@
       emoji.classList.add('animate');
     }
   </script>
+  <script>
+  
+    const userId = "{{ user_id|default:'' }}";
+    sessionStorage.setItem("user_id", userId);
+    console.log("✅ 현재 userId:", userId);
+  
+    let lastTurn = 1;
+    let lastQuestion = "";
+    let lastAnswer = "";
+    let lastChatId = "";
+
+    async function sendFeedback(score) {
+      console.log('[📤 sendFeedback 호출됨]');
+      try {
+        console.log("[🟡 피드백 전송 전]", {
+          user_id: sessionStorage.getItem("user_id"),
+          feedback: score,
+          turn: lastTurn
+        });
+        
+        const response = await fetch("/chat/feedback/", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": getCSRFToken()
+          },
+          body: JSON.stringify({
+            user_id: sessionStorage.getItem("user_id"),  // ✅ 여기를 이렇게 수정!
+            feedback: score,
+            turn: lastTurn
+          })
+        });
+    
+        const result = await response.json();
+        console.log("[✓] Feedback 저장 결과: ", result);
+      } catch (error) {
+        console.error("❌ 피드백 저장 오류:", error);
+      }
+    }
+    
+  
+    const feedbackButtons = document.querySelectorAll('.feedback-buttons button');
+    feedbackButtons[0].addEventListener('click', () => sendFeedback("good"));
+    feedbackButtons[1].addEventListener('click', () => sendFeedback("normal"));
+    feedbackButtons[2].addEventListener('click', () => sendFeedback("bad"));
+  </script>
+  
 </body>
 </html>
 
