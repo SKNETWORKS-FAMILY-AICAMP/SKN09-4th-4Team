@@ -65,7 +65,7 @@ Polict_Support Chatbot을 통해
 ### 2-2) 필요성 및 배경
 
 ### **❓ 보험 미가입 사유**
-![image](https://github.com/user-attachments/assets/651b2cc0-423a-4dbc-8232-1b6e921bc73a)
+![need](https://github.com/user-attachments/assets/e7b9b74d-3f95-431d-b96b-aeddfc3d4e98)
 - 출처 | https://kiri.or.kr/report/downloadFile.do?docId=499489
 - 각 연령별로 보험 미가입 사유에 편차가 있으나, 20대 이하의 경우 '보상범위 등 상품을 잘 몰라서'로 응답
 <br>
