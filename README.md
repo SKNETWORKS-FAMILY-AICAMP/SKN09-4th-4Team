@@ -104,14 +104,17 @@ Polict_Support Chatbot을 통해
 
 # 3️. 기술 스택 & 사용 모델
 <br>
-
-|항목|내용|
-|:---:|---|
-|개발 도구| ![VS Code](https://img.shields.io/badge/-VS%20Code-007ACC?logo=visualstudiocode&logoColor=white) ![RunPod](https://img.shields.io/badge/-RunPod-5F43DC?logo=cloud&logoColor=white) |
-|개발 언어| ![Python](https://img.shields.io/badge/-Python-3776AB?logo=python&logoColor=white)|
-|Vector DB|![FAISS](https://img.shields.io/badge/-FAISS-009999?logo=meta&logoColor=white)|
-|사용 모델| ![OpenAI-GPT4](https://img.shields.io/badge/GPT--4o-00A67E?style=flat&logo=openai&logoColor=white) ![HuggingFace](https://img.shields.io/badge/%F0%9F%A4%97%20HF_transformer%20-yellow) ![Langchain](https://img.shields.io/badge/LangChain-FF9900?style=flat&logo=Chainlink&logoColor=white)|
-|인터페이스| ![streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=flat&logo=Streamlit&logoColor=white) |
+| 항목           | 내용 |
+|:--------------:|------|
+| **개발 도구**   | ![VS Code](https://img.shields.io/badge/VS%20Code-007ACC?logo=visualstudiocode&logoColor=white) ![Docker](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=white) ![Docker Hub](https://img.shields.io/badge/Docker%20Hub-0db7ed?logo=docker&logoColor=white) |
+| **개발 언어**   | ![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white) ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=black) ![HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white) |
+| **Vector DB**  | ![FAISS](https://img.shields.io/badge/FAISS-009999?logo=meta&logoColor=white) |
+| **사용 모델**  | ![OpenAI GPT-4](https://img.shields.io/badge/GPT--4-00A67E?logo=openai&logoColor=white) ![Carrot LLaMA-3](https://img.shields.io/badge/LLaMA--3-FF5C8D?logo=llama&logoColor=white) ![Kanana-nano](https://img.shields.io/badge/Kanana--nano-5BCEFA?logo=huggingface&logoColor=black) ![LangChain](https://img.shields.io/badge/LangChain-FF9900?logo=Chainlink&logoColor=white) |
+| **서버**       | ![AWS EC2](https://img.shields.io/badge/AWS%20EC2-232F3E?logo=amazonaws&logoColor=white) ![Django](https://img.shields.io/badge/Django-092E20?logo=django&logoColor=white) ![Gunicorn](https://img.shields.io/badge/Gunicorn-499848?logo=gunicorn&logoColor=white) ![Nginx](https://img.shields.io/badge/Nginx-009639?logo=nginx&logoColor=white) |
+| **추론 서버**  | ![RunPod](https://img.shields.io/badge/RunPod-5F43DC?logo=cloud&logoColor=white) ![FastAPI](https://img.shields.io/badge/FastAPI-009688?logo=fastapi&logoColor=white) |
+| **인터페이스** | ![Django Template](https://img.shields.io/badge/Django%20Template-092E20?logo=django&logoColor=white) |
+| **데이터베이스** | ![MySQL](https://img.shields.io/badge/MySQL-4479A1?logo=mysql&logoColor=white) |
+| **협업 도구**   | ![GitHub](https://img.shields.io/badge/GitHub-181717?logo=github&logoColor=white) ![Notion](https://img.shields.io/badge/Notion-000000?logo=notion&logoColor=white) ![Discord](https://img.shields.io/badge/Discord-5865F2?logo=discord&logoColor=white) |
 
 
 <br>
@@ -140,16 +143,21 @@ Polict_Support Chatbot을 통해
 
 
 # 6. 화면설계서
-![image](https://github.com/user-attachments/assets/d87cc2c5-bdd1-4ffb-97b2-462883b2f8f4)
-![image](https://github.com/user-attachments/assets/507d2301-b89b-400e-a6fa-641ec2235153)
-![image](https://github.com/user-attachments/assets/20059873-42bb-4034-8315-1124f17d6944)
-![image](https://github.com/user-attachments/assets/9d9e1c36-a45c-49a2-afbd-e61e9bc324f3)
+![PAGE1](https://github.com/user-attachments/assets/4bef23f0-6e06-41ed-8852-338e5a36422c)
+
+![scr-02](https://github.com/user-attachments/assets/745457b3-46dd-4503-b7c8-9570e65500e4)
+
+![scr-03](https://github.com/user-attachments/assets/2be74cec-55dd-454f-ae64-88f126d3d1ad)
+
+![scr-04](https://github.com/user-attachments/assets/90ab803e-93e2-48c4-9a1b-060006771e44)
 
 
 # 7. WBS
+![wbs-4rd-4team](https://github.com/user-attachments/assets/4a9f8d8f-10e1-4aa5-8050-727b8c7bbe4f)
 
 # 8. 테스트 계획 및 결과 보고서
-![image](https://github.com/user-attachments/assets/33c92915-84f0-47e7-9f1e-7f07a59a13b7)
+![test-plan](https://github.com/user-attachments/assets/6cdbf6ee-6737-4854-9481-36ec53c12296)
+
 
 # 9. 수행 결과 
 
