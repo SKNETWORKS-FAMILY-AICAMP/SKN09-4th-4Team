@@ -186,7 +186,7 @@ Polict_Support Chatbot을 통해
 <br>
 
 ### 01. 첫 페이지
-![PAGE1](https://github.com/user-attachments/assets/4bef23f0-6e06-41ed-8852-338e5a36422c)
+![scr-01](https://github.com/user-attachments/assets/d9a1d652-eaa2-4069-b13b-a789b88239dc)
 
 - **사용자**는 개인정보 수집 약관을 확인하고 "개인정보 수집 동의"에 체크해야 상담 시작 버튼 활성화.
 - 챗봇에 나오는 보험 상품들이 무엇인지 설명을 확인할 수 있음.
@@ -194,12 +194,12 @@ Polict_Support Chatbot을 통해
 <br>
 
 ### 02. 채팅 페이지
-![scr-02](https://github.com/user-attachments/assets/745457b3-46dd-4503-b7c8-9570e65500e4)
+![src-02](https://github.com/user-attachments/assets/28943c03-71cc-4712-aaaa-9d46cfada46b)
 
 - **사용자**는 사이드바에서 원하는 보험사/보험종류를 선택.
 - 사용자가 입력창에서 자연어로 질문을 입력하고 "전송" 버튼으로 질문 메세지를 Chat-Bot에 전달.
 
-![scr-03](https://github.com/user-attachments/assets/2be74cec-55dd-454f-ae64-88f126d3d1ad)
+![scr-03](https://github.com/user-attachments/assets/054bc2af-e202-49fc-857a-6cdff9d62904)
 
 - 챗봇 상담 시작 알림 메세지 동작.
 - 사용자는 일반 대화 형식으로 상담을 진행하고, 대화를 재시작 하거나 종료하기 위한 대화 종료 버튼
@@ -207,7 +207,8 @@ Polict_Support Chatbot을 통해
 <br>
 
 ### 03. 피드백 및 종료
-![scr-04](https://github.com/user-attachments/assets/90ab803e-93e2-48c4-9a1b-060006771e44)
+![scr-04](https://github.com/user-attachments/assets/d073337f-1263-4765-866e-ec2f7bc5f4ee)
+
 
 - "대화기록 다운로드" 클릭 시 txt파일로 대화 내용을 저장받을 수 있음.
 - 피드백을 선택하면 연동된 mysql DB에 저장.
