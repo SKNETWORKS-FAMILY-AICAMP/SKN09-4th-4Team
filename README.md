@@ -124,6 +124,7 @@ Polict_Support Chatbot을 통해
 
 
 # 4️. 시스템 구성도
+![시스템 구성도](https://github.com/user-attachments/assets/3ce44b66-4343-4550-a61b-3c663ea58f3e)
 
 
 
@@ -143,17 +144,29 @@ Polict_Support Chatbot을 통해
 
 
 # 6. 화면설계서
+### Page ID : SCR-01
 ![PAGE1](https://github.com/user-attachments/assets/4bef23f0-6e06-41ed-8852-338e5a36422c)
 
+- **사용자**는 개인정보 수집 약관을 modal을 통하여 확인하고 "개인정보 수집 동의" 챗봇에서 제공 하는 내용을 확인 할 수 있으며, "보험 상담 시작하기" 버튼을 눌러 사용자가 원하는 시간에 상담을 시작할 수 있습니다. 
+
+### Page ID : SCR-02 
 ![scr-02](https://github.com/user-attachments/assets/745457b3-46dd-4503-b7c8-9570e65500e4)
 
+- **사용자**는 사이드바에서 원하는 보험사/보험종류를 선택. 사용자가 입력창에서 자연어로 질문을 입력하고 "전송" 버튼으로 질문 메세지를 Chat-Bot에 전달합니다.
+
+### Page ID : SCR-03
 ![scr-03](https://github.com/user-attachments/assets/2be74cec-55dd-454f-ae64-88f126d3d1ad)
 
+- **사용자**는 챗봇 상담 시작 알림 메세지로 정상적으로 접속 된것을 확인 가능하며, 사용자는 일반 대화 형식으로 상담을 진행하고, 대화를 재시작 하거나 종료 하려면 대화 초기화 및 다운로드를 클릭 할 수 있습니다.
+
+### Page ID : SCR-04
 ![scr-04](https://github.com/user-attachments/assets/90ab803e-93e2-48c4-9a1b-060006771e44)
 
+- **사용자**는 Chat-Bot과 나눈 대화를 저장할 수 있고, "되돌아가기" 버튼을 눌러 SRC-02 화면으로 돌아 갈 수 있습니다.
 
 # 7. WBS
-![wbs-4rd-4team](https://github.com/user-attachments/assets/4a9f8d8f-10e1-4aa5-8050-727b8c7bbe4f)
+![wbs-4rd-4team](https://github.com/user-attachments/assets/caf5dc52-aeec-4151-a82e-a35579e1cf9a)
+
 
 # 8. 테스트 계획 및 결과 보고서
 ![test-plan](https://github.com/user-attachments/assets/6cdbf6ee-6737-4854-9481-36ec53c12296)
