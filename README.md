@@ -135,7 +135,9 @@ Polict_Support Chatbot을 통해
 
 
 # 4️. 시스템 구성도
-![시스템 구성도](https://github.com/user-attachments/assets/3ce44b66-4343-4550-a61b-3c663ea58f3e)
+
+![system_arch](https://github.com/user-attachments/assets/20286f65-4a61-4413-ab53-507e4e73c34b)
+
 
 
 
