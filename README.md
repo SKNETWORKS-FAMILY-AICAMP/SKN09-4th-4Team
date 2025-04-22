@@ -54,9 +54,8 @@
 |-------|-------|---------|-------|
 | [@doyeon](https://github.com/doyeon158)  | [@kwj9942](https://github.com/kwj9942)  | [@Zayden](https://github.com/Zayden0815)  | [@dadambi](https://github.com/dadambi116)   |
 
-</dir>
+</div>
 
-<br>
 
 ---
 
@@ -87,10 +86,13 @@ Polict_Support Chatbot을 통해
 <br>
 
 ### 📑 요약
+<div align="center">
 
 |이유||챗봇 상담|
 |--|:--:|:--:|
 |❓ **정보 부족** :잘 모름, 이해 어려움<br>🌀  **복잡함** :상품이 너무 많고 어려움<br>📑 **약관 스트레스** :약관이 복잡하고 어려움<br>📞 **상담 불편** :전화 상담의 부담 | ➡️ |**챗봇 상담 <br> 약관 내용 바탕으로 답변 제공✅**|
+
+</div>
 
 <br>
 
@@ -155,13 +157,11 @@ Polict_Support Chatbot을 통해
 ✅ **2. 피드백 제출 기능**
 
 - 사용자는 대화를 종료 후에 챗봇 시스템에 대해 (좋아요&보통&싫어요)으로 피드백을 남길 수 있음.
-
 - 이 피드백 데이터를 수집하여 향후 성능향상을 위한 목적으로 모델 학습에 사용될 수 있음.
 
 ✅ **3. 대화 기록 다운로드 기능**
 
 - 사용자는 챗봇 대화 내용을 다운로드 받을 수 있음.
- 
 - 이를 통해 상담 이력을 보관하거나 필요한 내용을 다시 확인할 수 있음.
 
 <br>
@@ -202,10 +202,19 @@ Polict_Support Chatbot을 통해
 - "돌아가기" 선택 시 다시 채팅창으로 돌아감.
 - "초기화" 선택 시 대화 채팅이 초기화됨.
 
+<br>
+
+---
+
+
 # 7. WBS
 ![wbs-4rd-4team](https://github.com/user-attachments/assets/caf5dc52-aeec-4151-a82e-a35579e1cf9a)
 
-요구사항 정의 및 시스템 설계 -> 2. 백엔드 환경 구축 -> 3. 추론 서버 구축 -> Django ↔ RunPod 연동 -> 사용자 페이지(UI) 테스트 -> aws ec2 배포
+**요구사항 정의 및 시스템 설계** -> **백엔드 환경 구축** -> **추론 서버 구축** -> **Django ↔ RunPod 연동** -> **사용자 페이지(UI) 테스트** -> **aws ec2 배포**
+
+<br>
+
+---
    
 # 8. 테스트 계획 및 결과 보고서
 ![test-plan](https://github.com/user-attachments/assets/6cdbf6ee-6737-4854-9481-36ec53c12296)
