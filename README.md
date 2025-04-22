@@ -222,6 +222,17 @@ Polict_Support Chatbot을 통해
 # 8. 테스트 계획 및 결과 보고서
 ![test-plan](https://github.com/user-attachments/assets/6cdbf6ee-6737-4854-9481-36ec53c12296)
 
+
+![스크린샷 2025-04-22 140250](https://github.com/user-attachments/assets/3fa4f21e-ba4c-4a68-bf50-2718f6b21825)
+
+
+![스크린샷 2025-04-22 140305](https://github.com/user-attachments/assets/504c82aa-50c9-4b6f-8b24-14d98021716d)
+![스크린샷 2025-04-22 134343](https://github.com/user-attachments/assets/92fc0244-a466-454e-a3e5-c0a45ca517ac)
+
+
+![스크린샷 2025-04-22 140317](https://github.com/user-attachments/assets/8948a1d8-e746-4fe0-a23c-111660dc2b97)
+
+
 ---
 
 # 9. 수행 결과 
