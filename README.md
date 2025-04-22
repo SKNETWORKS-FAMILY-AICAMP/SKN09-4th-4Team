@@ -226,16 +226,23 @@ Polict_Support Chatbot을 통해
 
 
 ### 2. 테스트 결과 보고서
+
+**테스트 결과 1**
 ![image111](https://github.com/user-attachments/assets/5adb6527-f201-4c22-9288-5dd61df8a67d)
 
 
+
+**테스트 결과 2**
 ![IMAGE222](https://github.com/user-attachments/assets/b815dc6b-7aad-44f0-b8cd-29f8d37df26d)
 
 ![스크린샷 2025-04-22 134343](https://github.com/user-attachments/assets/92fc0244-a466-454e-a3e5-c0a45ca517ac)
 
+
+**테스트 결과 3**
 ![image333](https://github.com/user-attachments/assets/6515cee4-3171-44b1-b32f-c3fa6e62eb2d)
 
 
+<img src="https://github.com/user-attachments/assets/63f03e2e-e3e1-4245-908f-40ccb7cd7435" alt="2025-04-22_144050" width="500"/>
 
 
 ---
@@ -245,10 +252,14 @@ Polict_Support Chatbot을 통해
 ---
 
 # 10. 한줄 회고
-김도연:
-김우중:
-김정훈:
-이윤재: 
+
+- 김도연: 기본적인 Django 파일 구조에 따라 설계를 진행했지만, 사용자별 대화 데이터를 저장하는 기능이 필요해지면서, 기존 로직에 사용자 식별용 user id 생성 함수와 관련 클래스를 새롭게 설계하게 되었습니다. 기능이 추가되면서 발생할 수 있는 구조적 복잡성과, 처음부터 구조적인 설계가 왜 중요한지 체감할 수 있었습니다.
+
+- 김우중: Docker와 FastAPI를 연동하는 과정에서 프록시 포트와 실행 환경 설정에 어려움을 겪었지만, 시행착오를 통해 서버 실행 구조를 이해하는 경험을 얻었습니다. 
+
+- 김정훈:
+
+- 이윤재: 
 
 
 
