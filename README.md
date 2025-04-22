@@ -11,15 +11,15 @@
     - 프로젝트 필요성 및 배경
     - 프로젝트 목표
     
-3. 기술 스택
+3. WBS
 
-4. 시스템 구성도
+4. 기술 스택
 
-5. 요구사항 정의서
+5. 시스템 구성도
 
-6. 화면 설계서
+6. 요구사항 정의서
 
-7. WBS
+7. 화면 설계서
 
 8. 테스트 계획 및 결과 보고서
     - 테스트 계획
@@ -27,7 +27,7 @@
 
 9. 수행 결과
 
-11. 한 줄 회고
+10. 한 줄 회고
 
 <br>
 
@@ -112,8 +112,18 @@ Polict_Support Chatbot을 통해
 ---
 
 
+# 3. WBS
+![wbs-4rd-4team](https://github.com/user-attachments/assets/caf5dc52-aeec-4151-a82e-a35579e1cf9a)
 
-# 3️. 기술 스택 & 사용 모델
+**요구사항 정의 및 시스템 설계** -> **백엔드 환경 구축** -> **추론 서버 구축** -> **Django ↔ RunPod 연동** -> **사용자 페이지(UI) 테스트** -> **aws ec2 배포**
+
+<br>
+
+---
+
+
+
+# 4. 기술 스택 & 사용 모델
 <br>
 
 | 항목           | 내용 |
@@ -134,7 +144,7 @@ Polict_Support Chatbot을 통해
 
 
 
-# 4️. 시스템 구성도
+# 5. 시스템 구성도
 
 ![system_arch](https://github.com/user-attachments/assets/20286f65-4a61-4413-ab53-507e4e73c34b)
 
@@ -147,7 +157,7 @@ Polict_Support Chatbot을 통해
 
 
 
-# 5️. 요구사항 정의서
+# 6. 요구사항 정의서
 
 ![requirement](https://github.com/user-attachments/assets/ab4dea56-7786-402b-be86-834fad3c2b00)
 
@@ -171,7 +181,7 @@ Polict_Support Chatbot을 통해
 ---
 
 
-# 6. 화면설계서
+# 7. 화면설계서
 
 <br>
 
@@ -206,23 +216,17 @@ Polict_Support Chatbot을 통해
 
 <br>
 
----
-
-
-# 7. WBS
-![wbs-4rd-4team](https://github.com/user-attachments/assets/caf5dc52-aeec-4151-a82e-a35579e1cf9a)
-
-**요구사항 정의 및 시스템 설계** -> **백엔드 환경 구축** -> **추론 서버 구축** -> **Django ↔ RunPod 연동** -> **사용자 페이지(UI) 테스트** -> **aws ec2 배포**
-
-<br>
 
 ---
    
 # 8. 테스트 계획 및 결과 보고서
 ![test-plan](https://github.com/user-attachments/assets/6cdbf6ee-6737-4854-9481-36ec53c12296)
 
+---
 
 # 9. 수행 결과 
+
+---
 
 # 10. 한줄 회고
 김도연:
